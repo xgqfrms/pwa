@@ -9,6 +9,11 @@ https://developers.google.com/web/progressive-web-apps/desktop
 https://pwa.xgqfrms.xyz
 
 
+https://developers.google.com/web/ilt/pwa/
+
+https://codelabs.developers.google.com/dev-pwa-training/
+
+https://www.youtube.com/playlist?list=PLNYkxOF6rcIB2xHBZ7opgc2Mv009X87Hh
 
 
 ```js
