@@ -4,6 +4,9 @@
   "description": "Codelab for Your First PWAPP",
   "homepage": "https://codelabs.developers.google.com/codelabs/your-first-pwapp/",
   "main": "server.js",
+  "bin": {
+    "dev": "./dev.sh"
+  },
   "scripts": {
     "start": "node server.js",
     "dev": "open http://localhost:8000 && node server.js"
