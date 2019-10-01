@@ -8,13 +8,11 @@ https://developers.google.com/web/progressive-web-apps/desktop
 
 https://pwa.xgqfrms.xyz
 
-
 https://developers.google.com/web/ilt/pwa/
 
 https://codelabs.developers.google.com/dev-pwa-training/
 
 https://www.youtube.com/playlist?list=PLNYkxOF6rcIB2xHBZ7opgc2Mv009X87Hh
-
 
 ```js
     // todos
@@ -48,7 +46,6 @@ https://github.com/googlecodelabs?utf8=%E2%9C%93&q=amp&type=&language=
 
 https://github.com/googlecodelabs?utf8=%E2%9C%93&q=pwa&type=&language=
 
-
 ## web fundamentals
 
 https://developers.google.com/web/fundamentals/codelabs/?hl=zh-cn
@@ -61,4 +58,6 @@ https://codelabs.flutter-io.cn/
 
 https://codelabs.flutter-io.cn/#codelabs
 
+## PWA & TWA
 
+https://www.cnblogs.com/xgqfrms/p/11616179.html
