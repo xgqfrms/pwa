@@ -43,4 +43,3 @@ https://darksky.net/dev/account
 ## text & gzip
 
 https://developers.google.com/web/tools/lighthouse/audits/text-compression
-
