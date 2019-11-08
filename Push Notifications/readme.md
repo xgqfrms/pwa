@@ -12,6 +12,8 @@ https://developers.google.com/web/fundamentals/codelabs/your-first-pwapp/?hl=zh-
 
 https://web-push-codelab.glitch.me/
 
+https://glitch.com/edit/#!/web-push-codelab
+
 ```sh
 # Public Key
 
@@ -79,3 +81,8 @@ https://developers.google.com/web/fundamentals/push-notifications/common-issues-
 
 chrome://settings/content/notifications?search=Notification
 
+## bug
+
+https://codelabs.developers.google.com/codelabs/push-notifications/index.html
+
+https://github.com/GoogleChromeLabs/web-push-codelab/issues
