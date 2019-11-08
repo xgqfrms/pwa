@@ -21,3 +21,28 @@
 
 'use strict';
 
+// step7: push event
+self.addEventListener('push', function(event) {
+    console.log('[Service Worker] Push Received.');
+    console.log(`[Service Worker] Push had this data: "${event.data.text()}"`);
+    const title = 'Push Codelab';
+    const options = {
+        body: 'Yay it works.',
+        icon: 'images/icon.png',
+        badge: 'images/badge.png'
+    };
+    // TODO: Notification bug ???
+    self.registration.showNotification(title, options);
+    // event.waitUntil(self.registration.showNotification(title, options));
+    // const notificationPromise = self.registration.showNotification(title, options);
+    // event.waitUntil(notificationPromise);
+});
+
+// step8: click
+self.addEventListener('notificationclick', function(event) {
+    console.log('[Service Worker] Notification click Received.');
+    event.notification.close();
+    event.waitUntil(
+        clients.openWindow('https://developers.google.com/web/')
+    );
+});
