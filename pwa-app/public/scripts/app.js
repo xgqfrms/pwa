@@ -166,8 +166,10 @@ function getForecastFromCache(coords) {
   if (!('caches' in window)) {
     return null;
   }
-  // ??? bug
-  const url = `${window.location.origin}/forecast/${coords}`;
+  // API ??? bug
+  // api_conditions_url = "https://api.darksky.net/forecast/" + DARKSKY_API_KEY + "/" + GPS_COORDS + "?units=auto"
+  const url = `https://api.darksky.net/forecast/1dda89e902ce89b77ed2412eac3026d8/${coords}`;
+  // const url = `${window.location.origin}/forecast/${coords}`;
   return caches.match(url)
       .then((response) => {
         if (response) {
