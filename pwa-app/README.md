@@ -34,11 +34,7 @@ $ npm run dev
 
 ## API key
 
-> dsapi2019 outlook
-
-1dda89e902ce89b77ed2412eac3026d8
-
-https://darksky.net/dev/account
+> key.md
 
 ## text & gzip
 
