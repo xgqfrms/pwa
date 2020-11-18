@@ -166,6 +166,7 @@ function getForecastFromCache(coords) {
   if (!('caches' in window)) {
     return null;
   }
+  // ??? bug
   const url = `${window.location.origin}/forecast/${coords}`;
   return caches.match(url)
       .then((response) => {
