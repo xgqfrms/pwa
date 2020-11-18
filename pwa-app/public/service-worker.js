@@ -121,7 +121,8 @@ self.addEventListener('fetch', (evt) => {
           .catch(() => {
             return caches.open(CACHE_NAME)
                 .then((cache) => {
-                  return cache.match('./pwa-app/public/offline.html');
+                  return cache.match('offline.html');
+                  // return cache.match('./pwa-app/public/offline.html');
                 });
           })
   );
