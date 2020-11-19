@@ -436,3 +436,25 @@ body {
     background-color: yellow;
   }
 }
+
+/* footer */
+
+footer {
+  display: grid;
+  place-items: center;
+  color: #0f0;
+  width: 100vw;
+  background: #000;
+}
+
+footer.grid {
+  display: grid;
+  place-items: center;
+}
+
+footer.flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
