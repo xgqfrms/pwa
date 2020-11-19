@@ -146,15 +146,20 @@ function renderForecast(card, data) {
  * @return {Object} The weather forecast, if the request fails, return null.
  */
 function getForecastFromNetwork(coords) {
-  const url = `https://api.darksky.net/forecast/1dda89e902ce89b77ed2412eac3026d8/${coords}`;
+  const url = `https://pwa.xgqfrms.xyz/pwa-app/weather-api.json`;
+  // const url = `https://api.darksky.net/forecast/1dda89e902ce89b77ed2412eac3026d8/${coords}`;
   // const url = `/forecast/${coords}`;
   return fetch(url)
-      .then((response) => {
-        return response.json();
-      })
-      .catch(() => {
-        return null;
-      });
+    .then((response) => {
+      return response.json();
+    })
+    .then(json => {
+      console.log(`network json`, json);
+    })
+    .catch((err) => {
+      console.error('Error getting data from cache', err);
+      return null;
+    });
 }
 
 /**
@@ -170,19 +175,23 @@ function getForecastFromCache(coords) {
   }
   // API ??? bug
   // api_conditions_url = "https://api.darksky.net/forecast/" + DARKSKY_API_KEY + "/" + GPS_COORDS + "?units=auto"
-  const url = `https://api.darksky.net/forecast/1dda89e902ce89b77ed2412eac3026d8/${coords}`;
+  const url = `https://pwa.xgqfrms.xyz/pwa-app/weather-api.json`;
+  // const url = `https://api.darksky.net/forecast/1dda89e902ce89b77ed2412eac3026d8/${coords}`;
   // const url = `${window.location.origin}/forecast/${coords}`;
   return caches.match(url)
-      .then((response) => {
-        if (response) {
-          return response.json();
-        }
-        return null;
-      })
-      .catch((err) => {
-        console.error('Error getting data from cache', err);
-        return null;
-      });
+    .then((response) => {
+      if (response) {
+        return response.json();
+      }
+      return null;
+    })
+    .then(json => {
+      console.log(`cache json`, json);
+    })
+    .catch((err) => {
+      console.error('Error getting data from cache', err);
+      return null;
+    });
 }
 
 /**
