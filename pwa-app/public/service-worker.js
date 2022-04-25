@@ -116,13 +116,12 @@ self.addEventListener('fetch', (evt) => {
     return;
   }
   evt.respondWith(
-      fetch(evt.request)
-          .catch(() => {
-            return caches.open(CACHE_NAME)
-                .then((cache) => {
-                  return cache.match('offline.html');
-                  // return cache.match('/offline.html');
-                });
-          })
+    fetch(evt.request)
+    .catch(() => {
+      return caches.open(CACHE_NAME).then((cache) => {
+        return cache.match('offline.html');
+        // return cache.match('/offline.html');
+      });
+    })
   );
 });

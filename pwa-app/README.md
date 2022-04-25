@@ -39,3 +39,12 @@ $ npm run dev
 ## text & gzip
 
 https://developers.google.com/web/tools/lighthouse/audits/text-compression
+
+
+```sh
+npm WARN EBADENGINE Unsupported engine {
+npm WARN EBADENGINE   package: 'your-first-pwapp@2.0.0',
+npm WARN EBADENGINE   required: { node: '10.x' },
+npm WARN EBADENGINE   current: { node: 'v16.14.2', npm: '8.5.0' }
+npm WARN EBADENGINE }
+```
