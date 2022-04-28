@@ -29,6 +29,14 @@ function toggleAddDialog() {
   weatherApp.addDialogContainer.classList.toggle('visible');
 }
 
+
+/**
+ * Capitalize first letter.
+ */
+ function capitalizeFirstLetter(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
 /**
  * Event handler for butDialogAdd, adds the selected location to the list.
  */
@@ -83,35 +91,35 @@ function renderForecast(card, data) {
   const lastUpdated = parseInt(cardLastUpdated);
 
   // If the data on the element is newer, skip the update.
-  if (lastUpdated >= data.currently.time) {
+  if (lastUpdated >= data.current.dt) {
     return;
   }
-  cardLastUpdatedElem.textContent = data.currently.time;
+  cardLastUpdatedElem.textContent = data.current.dt;
 
   // Render the forecast data into the card.
-  card.querySelector('.description').textContent = data.currently.summary;
+  card.querySelector('.description').textContent = capitalizeFirstLetter(data.current.weather[0].description);
   const forecastFrom = luxon.DateTime
-      .fromSeconds(data.currently.time)
+      .fromSeconds(data.current.dt)
       .setZone(data.timezone)
       .toFormat('DDDD t');
   card.querySelector('.date').textContent = forecastFrom;
   card.querySelector('.current .icon')
-      .className = `icon ${data.currently.icon}`;
+      .className = `icon ${data.current.weather[0].icon}`;
   card.querySelector('.current .temperature .value')
-      .textContent = Math.round(data.currently.temperature);
+      .textContent = Math.round(data.current.weather[0].temp);
   card.querySelector('.current .humidity .value')
-      .textContent = Math.round(data.currently.humidity * 100);
+      .textContent = Math.round(data.current.humidity * 100);
   card.querySelector('.current .wind .value')
-      .textContent = Math.round(data.currently.windSpeed);
+      .textContent = Math.round(data.current.wind_speed);
   card.querySelector('.current .wind .direction')
-      .textContent = Math.round(data.currently.windBearing);
+      .textContent = Math.round(data.current.wind_deg);
   const sunrise = luxon.DateTime
-      .fromSeconds(data.daily.data[0].sunriseTime)
+      .fromSeconds(data.current.sunrise)
       .setZone(data.timezone)
       .toFormat('t');
   card.querySelector('.current .sunrise .value').textContent = sunrise;
   const sunset = luxon.DateTime
-      .fromSeconds(data.daily.data[0].sunsetTime)
+      .fromSeconds(data.current.sunset)
       .setZone(data.timezone)
       .toFormat('t');
   card.querySelector('.current .sunset .value').textContent = sunset;
@@ -119,17 +127,17 @@ function renderForecast(card, data) {
   // Render the next 7 days.
   const futureTiles = card.querySelectorAll('.future .oneday');
   futureTiles.forEach((tile, index) => {
-    const forecast = data.daily.data[index + 1];
+    const forecast = data.daily[index + 1];
     const forecastFor = luxon.DateTime
-        .fromSeconds(forecast.time)
+        .fromSeconds(forecast.dt)
         .setZone(data.timezone)
         .toFormat('ccc');
     tile.querySelector('.date').textContent = forecastFor;
-    tile.querySelector('.icon').className = `icon ${forecast.icon}`;
+    tile.querySelector('.icon').className = `icon i${forecast.weather[0].icon}`;
     tile.querySelector('.temp-high .value')
-        .textContent = Math.round(forecast.temperatureHigh);
+        .textContent = Math.round(forecast.temp.max);
     tile.querySelector('.temp-low .value')
-        .textContent = Math.round(forecast.temperatureLow);
+        .textContent = Math.round(forecast.temp.min);
   });
 
   // If the loading spinner is still visible, remove it.
@@ -146,7 +154,21 @@ function renderForecast(card, data) {
  * @return {Object} The weather forecast, if the request fails, return null.
  */
 function getForecastFromNetwork(coords) {
-  const url = `https://pwa.xgqfrms.xyz/pwa-app/weather-api.json`;
+  console.log('coords =', coords);
+  // 纬度 / 经度
+  const [latitude, longitude] = coords.split(',');
+  // console.log('coords =', coords);
+  // const location = req.params.location || '40.7720232,-73.9732319';
+  // https://api.openweathermap.org/data/2.5/onecall?lat=31.2243085&lon=120.9162955&appid=31977d6102fca95a51a571a081d05538&units=imperial
+  // const location = '40.7720232,-73.9732319';
+  const API_KEY = `31977d6102fca95a51a571a081d05538`;
+  const BASE_URL = `https://api.openweathermap.org/data/2.5/onecall`;
+  // const url = `${BASE_URL}/${API_KEY}/${location}`;
+  // 摄氏度
+  const url = `${BASE_URL}?lat=${latitude}&lon=${longitude}&appid=${API_KEY}&units=celsius`;
+  // 华氏度
+  // const url = `${BASE_URL}?lat=${latitude}&lon=${longitude}&appid=${API_KEY}&units=imperial`;
+  // const url = `https://pwa.xgqfrms.xyz/pwa-app/weather-api.json`;
   // const url = `https://api.darksky.net/forecast/1dda89e902ce89b77ed2412eac3026d8/${coords}`;
   // const url = `/forecast/${coords}`;
   return fetch(url)
@@ -155,6 +177,8 @@ function getForecastFromNetwork(coords) {
     })
     .then(json => {
       console.log(`network json`, json);
+      // return JSON ✅
+      return json;
     })
     .catch((err) => {
       console.error('Error getting data from cache', err);

@@ -8,10 +8,10 @@
     "dev": "./dev.sh"
   },
   "scripts": {
-    "start": "node server.js",
-    "dev": "open http://localhost:8000 && node server.js"
+    "start": "open http://localhost:8888 && node server.js"
   },
   "dependencies": {
+    "dotenv": "^8.2.0",
     "express": "^4.16.4",
     "express-http-to-https": "^1.1.4",
     "node-fetch": "^2.3.0"

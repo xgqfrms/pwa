@@ -22,14 +22,25 @@ const express = require('express');
 const fetch = require('node-fetch');
 const redirectToHTTPS = require('express-http-to-https').redirectToHTTPS;
 
+// env
+const ENV = require('dotenv').config();
+console.log('ENV', ENV);
+
 // CODELAB: Change this to add a delay (ms) before the server responds.
 const FORECAST_DELAY = 0;
 
 // CODELAB: If running locally, set your Dark Sky API key here
-const API_KEY = process.env.DARKSKY_API_KEY;
-const BASE_URL = `https://api.darksky.net/forecast`;
+// const API_KEY = process.env.DARKSKY_API_KEY;
+// const BASE_URL = `https://api.darksky.net/forecast`;
 
-// Fake forecast data used if we can't reach the Dark Sky API
+
+// CODELAB: If running locally, set your Open Weather Map API key here
+const API_KEY = process.env.OPEN_WEATHER_MAP_API_KEY;
+console.log('API_KEY', API_KEY);
+
+const BASE_URL = `https://api.openweathermap.org/data/2.5/onecall`;
+
+// Fake forecast data used if we can't reach the Weather API
 const fakeForecast = {
   fakeData: true,
   latitude: 0,
@@ -141,6 +152,7 @@ function generateFakeForecast(location) {
 function getForecast(req, resp) {
   const location = req.params.location || '40.7720232,-73.9732319';
   const url = `${BASE_URL}/${API_KEY}/${location}`;
+  console.log('\n✅ weather api url =', url);
   fetch(url).then((resp) => {
     if (resp.status !== 200) {
       throw new Error(resp.statusText);
@@ -164,7 +176,7 @@ function getForecast(req, resp) {
 function startServer() {
   const app = express();
 
-  // Redirect HTTP to HTTPS,
+  // Redirect HTTP to HTTPS, ✅ 80 => 443
   app.use(redirectToHTTPS([/localhost:(\d{4})/], [], 301));
 
   // Logging for each request
@@ -174,7 +186,7 @@ function startServer() {
     const path = `"${req.method} ${req.path}"`;
     const m = `${req.ip} - ${time} - ${path}`;
     // eslint-disable-next-line no-console
-    console.log(m);
+    console.log('中间件 m =', m);
     next();
   });
 
@@ -187,9 +199,9 @@ function startServer() {
   app.use(express.static('public'));
 
   // Start the server
-  return app.listen('8000', () => {
+  return app.listen('8888', () => {
     // eslint-disable-next-line no-console
-    console.log('Local DevServer Started on port 8000...', '\nhttp://localhost:8000');
+    console.log('local dev server running', '\nhttp://localhost:8888');
   });
 }
 
